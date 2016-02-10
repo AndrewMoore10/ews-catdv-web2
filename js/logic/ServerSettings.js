@@ -82,7 +82,7 @@ var logic;
                                             readOnly: false,
                                             hideIfBlank: legacyPanelField.hideIfBlank,
                                             spanTwoColumns: legacyPanelField.twoCols,
-                                            multiline: legacyPanelField.wrap
+                                            multiline: legacyPanelField.wrap,
                                         });
                                         if (fieldDefinition && (fieldDefinition.ID == "STS")) {
                                             statusFieldDef = fieldDefinition;
@@ -131,7 +131,7 @@ var logic;
                     isMandatory: false,
                     isMultiValue: false,
                     isList: false,
-                    values: null
+                    values: null,
                 };
                 return metadataField;
             }
@@ -209,7 +209,7 @@ var logic;
                             isMandatory: false,
                             isMultiValue: fieldType.contains("multi"),
                             isList: fieldType.contains("multi") || fieldType.contains("picklist") || fieldType.contains("hiearchy"),
-                            values: legacyUserField.values
+                            values: legacyUserField.values,
                         });
                     });
                     userFieldLookup = {};
@@ -221,6 +221,11 @@ var logic;
                     callback(userFieldDefinitions, userFieldLookup);
                 });
             }
+        };
+        FieldSettingsManager.getUniqueFieldValues = function (fieldDef, callback) {
+            $catdv.getFieldValues(-1, fieldDef.ID, function (values) {
+                callback(values != null ? values.filter(function (value) { return value != null; }) : []);
+            });
         };
         FieldSettingsManager.getFieldValues = function (fieldDef, callback) {
             $catdv.getFieldValues(FieldSettingsManager.searchGroupID, fieldDef.ID, function (values) {

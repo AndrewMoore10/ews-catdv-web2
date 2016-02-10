@@ -104,6 +104,7 @@ var ui;
                 var _this = this;
                 _super.call(this, element);
                 this.catalogSelectedHandler = null;
+                this.model = null;
                 this.navigator = navigator;
                 this.$element.html("<div class='popout-container'>" + "<a href='#' id='closeCatalogsPanelBtn' class='close-button'><span class='catdvicon catdvicon-close_panel'> </span></a>" + "<h2>Catalogs</h2><div id='catalogTree'></div>" + "</div>");
                 this.closePanelBtn = new Button("closeCatalogsPanelBtn");
@@ -115,7 +116,6 @@ var ui;
                         _this.catalogSelectedHandler(selectedNode.value);
                     }
                 });
-                this.loadData();
             }
             CatalogsPanel.create = function (parent) {
                 return new CatalogsPanel($("<div id='catalogsPanel' class='popout-panel'></div>").appendTo(Element.get$(parent)), parent);
@@ -123,10 +123,19 @@ var ui;
             CatalogsPanel.prototype.onCatalogSelected = function (catalogSelectedHandler) {
                 this.catalogSelectedHandler = catalogSelectedHandler;
             };
+            // Override PopoutPanel.open()
+            CatalogsPanel.prototype.open = function () {
+                _super.prototype.open.call(this);
+                if (this.model == null) {
+                    this.catalogTree.setModel([{ name: "Loading..." }]);
+                    this.loadData();
+                }
+            };
             CatalogsPanel.prototype.loadData = function () {
                 var _this = this;
                 $catdv.getCatalogs(function (catalogs) {
-                    _this.catalogTree.setModel(_this.buildCatalogTree(catalogs));
+                    _this.model = _this.buildCatalogTree(catalogs);
+                    _this.catalogTree.setModel(_this.model);
                 });
             };
             CatalogsPanel.prototype.buildCatalogTree = function (catalogs) {
@@ -173,6 +182,7 @@ var ui;
                 var _this = this;
                 _super.call(this, element);
                 this.mediaPathQueryHandler = null;
+                this.model = null;
                 this.navigator = navigator;
                 this.$element.html("<div class='popout-container'>" + "<a href='#' id='closeMediaPathPanelBtn' class='close-button'><span class='catdvicon catdvicon-close_panel'> </span></a>" + "<h2>Media Paths</h2>" + "<div id='mediaPathTree'></div>" + "</div>");
                 this.closePanelBtn = new Button("closeMediaPathPanelBtn");
@@ -184,7 +194,6 @@ var ui;
                         _this.mediaPathQueryHandler({ terms: [{ field: "media.fileDir", op: "startsWith", params: selectedNode.value }] }, "Path:" + selectedNode.value);
                     }
                 });
-                this.loadData();
             }
             MediaPathsPanel.create = function (parent) {
                 return new MediaPathsPanel($("<div id='mediaPathsPanel' class='popout-panel'></div>").appendTo(Element.get$(parent)), parent);
@@ -192,10 +201,19 @@ var ui;
             MediaPathsPanel.prototype.onMediaPathQuery = function (mediaPathQueryHandler) {
                 this.mediaPathQueryHandler = mediaPathQueryHandler;
             };
+            // Override PopoutPanel.open()
+            MediaPathsPanel.prototype.open = function () {
+                _super.prototype.open.call(this);
+                if (this.model == null) {
+                    this.mediaPathTree.setModel([{ name: "Loading..." }]);
+                    this.loadData();
+                }
+            };
             MediaPathsPanel.prototype.loadData = function () {
                 var _this = this;
-                FieldSettingsManager.getFieldValues({ ID: "FLD" }, function (paths) {
-                    _this.mediaPathTree.setModel(_this.buildMediaPathTree(paths));
+                FieldSettingsManager.getUniqueFieldValues({ ID: "FLD" }, function (paths) {
+                    _this.model = _this.buildMediaPathTree(paths);
+                    _this.mediaPathTree.setModel(_this.model);
                 });
             };
             MediaPathsPanel.prototype.buildMediaPathTree = function (mediaPaths) {
@@ -246,6 +264,7 @@ var ui;
                 var _this = this;
                 _super.call(this, element);
                 this.smartFolderSelectedHandler = null;
+                this.model = null;
                 this.navigator = navigator;
                 this.$element.html("<div class='popout-container'>" + "<a href='#' id='closeSmartFolderPanelBtn' class='close-button'><span class='catdvicon catdvicon-close_panel'> </span></a>" + "<a id='btnAddSmartFolder'>Add Smart Folder</a>" + "<h2>Smart Folders</h2>" + "<div id='smartfolderTree'></div>" + "</div>");
                 this.closePanelBtn = new Button("closeSmartFolderPanelBtn");
@@ -281,7 +300,6 @@ var ui;
                 this.smartFolderDialog.onOK(function (smartfolder) {
                     $catdv.saveSmartFolder(smartfolder, function () { return _this.loadData(); });
                 });
-                this.loadData();
             }
             SmartFoldersPanel.create = function (parent) {
                 return new SmartFoldersPanel($("<div id='smartFoldersPanel' class='popout-panel'></div>").appendTo(Element.get$(parent)), parent);
@@ -289,10 +307,19 @@ var ui;
             SmartFoldersPanel.prototype.onSmartFolderSelected = function (smartFolderSelectedHandler) {
                 this.smartFolderSelectedHandler = smartFolderSelectedHandler;
             };
+            // Override PopoutPanel.open()
+            SmartFoldersPanel.prototype.open = function () {
+                _super.prototype.open.call(this);
+                if (this.model == null) {
+                    this.smartfolderTree.setModel([{ name: "Loading..." }]);
+                    this.loadData();
+                }
+            };
             SmartFoldersPanel.prototype.loadData = function () {
                 var _this = this;
                 $catdv.getSmartFolders(function (smartFolders) {
-                    _this.smartfolderTree.setModel(_this.buildFolderTree(smartFolders));
+                    _this.model = _this.buildFolderTree(smartFolders);
+                    _this.smartfolderTree.setModel(_this.model);
                 });
             };
             SmartFoldersPanel.prototype.buildFolderTree = function (folders) {

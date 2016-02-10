@@ -54,6 +54,21 @@ var logic;
                                 fieldDefinition: fieldDef
                             });
                         }
+                        else {
+                            userfieldPanel.fields.push({
+                                fieldDefinition: {
+                                    fieldType: "text",
+                                    memberOf: "clip",
+                                    fieldGroupID: null,
+                                    identifier: propertyName,
+                                    name: propertyName.replace(new RegExp('^U'), "User "),
+                                    isEditable: false,
+                                    isMandatory: false,
+                                    isMultiValue: false,
+                                    isList: false
+                                }
+                            });
+                        }
                     }
                 }
                 var metadataPanel = { name: "Technical", fields: [] };

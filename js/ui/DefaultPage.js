@@ -11,6 +11,7 @@ var ui;
     var Button = controls.Button;
     var RadioButton = controls.RadioButton;
     var Modal = controls.Modal;
+    var Platform = util.Platform;
     var ClipManager = logic.ClipManager;
     var ServerPluginManager = logic.ServerPluginManager;
     var ServerCommandMenu = logic.ServerCommandMenu;
@@ -37,8 +38,12 @@ var ui;
                 _this.clipList = new ClipListPanel("clipListPanel", "clip-details.jsp");
                 _this.navigator = new NavigatorPanel("navigatorPanel", _this.clipList);
                 _this.btnFileUpload.onClick(function (evt) {
-		    window.open ("http://mastercat:8082/rss/newItem", "The Bridge");
-                    //window.open("uploadFiles.jsp", "Upload", "width=500,height=450");
+                    if (Platform.isOldIE()) {
+                        window.open("simpleUpload.jsp", "Upload", "width=400,height=350");
+                    }
+                    else {
+                        window.open("uploadFiles.jsp", "Upload", "width=500,height=450");
+                    }
                 });
                 _this.btnEditClips.onClick(function (evt) {
                     var selectedClips = _this.clipList.getSelectedClips();

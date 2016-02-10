@@ -163,7 +163,7 @@ var ui;
                         "vertical-align": "bottom"
                     }).appendTo($imgContainer);
                     if (_this.viewClipUrl) {
-                        $("<a href='" + _this.viewClipUrl + "?id=" + clip.ID + " '>" + clip.name + "</a>").css({
+                        $("<a href='" + _this.viewClipUrl + "?id=" + clip.ID + " '>" + clip.name + "<br/>" + (clip.userFields && clip.userFields.U6 ? clip.userFields.U6 : "") + "</a>").css({
                             "display": "block",
                             "overflow": "hidden",
                             "white-space": "nowrap"
@@ -461,7 +461,12 @@ var ui;
                 }
                 params["cached"] = this.useCache;
                 // TODO: should check which view columns we have to see if we need user fields or metadata
-                params["include"] = "userfields,metadata,thumbnails";
+                params["include"] = "userFields,metadata,thumbnails";
+                
+                if(!params.sortDir){ params.desc = "clip.modifiedDate"}
+                else if(params.sortDir === "ASC") params.asc = params.sortBy;
+                else if(params.sortDir === "DESC") params.desc = params.sortBy;
+
                 $catdv.getClips(params, function (resultSet) {
                     _this.useCache = true;
                     callback(resultSet);
