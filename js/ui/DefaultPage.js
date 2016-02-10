@@ -42,7 +42,7 @@ var ui;
                         window.open("simpleUpload.jsp", "Upload", "width=400,height=350");
                     }
                     else {
-                        window.open("http://mastercat.ewsad.net:8082/rss/newItem");
+                        window.open("http://mastercat.ad.ewsad.net:8082/rss/newItem");
                         // window.open("uploadFiles.jsp", "Upload", "width=500,height=450");
                     }
                 });
