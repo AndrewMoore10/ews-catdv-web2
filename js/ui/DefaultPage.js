@@ -42,7 +42,8 @@ var ui;
                         window.open("simpleUpload.jsp", "Upload", "width=400,height=350");
                     }
                     else {
-                        window.open("uploadFiles.jsp", "Upload", "width=500,height=450");
+                        window.open("http://mastercat.ewsad.net:8082/rss/newItem");
+                        // window.open("uploadFiles.jsp", "Upload", "width=500,height=450");
                     }
                 });
                 _this.btnEditClips.onClick(function (evt) {
