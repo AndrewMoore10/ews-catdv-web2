@@ -79,8 +79,9 @@ var logic;
         /** The columns for a normal view (with poster). */
         ViewManager.DEFAULT_NORMAL_COLUMNS = [
             "P1",
-            "TY2",
+            // "TY2",
             "NM1",
+            "U6",
             "U6",
             // "BN",
             // "I1",

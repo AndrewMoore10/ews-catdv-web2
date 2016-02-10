@@ -1723,6 +1723,22 @@ var logic;
             "isMultiValue": false,
             "isList": false
         },
+        "U5": {
+            "ID": "U5",
+            "memberOf": "clip",
+            "identifier": "U5",
+            "name": "Station",
+            "description": "Station ID",
+            "fieldType": "text",
+            "isBuiltin": false,
+            "canQuery": false,
+            "isCalculated": false,
+            "isEditable": false,
+            "isMandatory": false,
+            "isMultiValue": false,
+            "isList": false,
+            "isSortable": true
+        },
         "U6": {
             "ID": "U6",
             "memberOf": "clip",
