@@ -780,7 +780,7 @@ var logic;
             "ID": "MD1",
             "memberOf": "clip",
             "identifier": "modifiedDate",
-            "name": "Date",
+            "name": "Date Modified",
             "description": "Date clip created or last modified by user",
             "fieldType": "datetime",
             "isBuiltin": true,
