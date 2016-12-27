@@ -33,7 +33,9 @@ var downloadTracker = function(){
 }
 var tracker = downloadTracker();
 
-$(document).on('click', '.field_MF a', function(event){
+
+//left click tracker
+$(document).on('click contextmenu', '.field_MF a', function(event){
   // alert("Download clicked! " + getUrlParameter("id"));
   // console.log(tracker);
   // console.log(event);
@@ -41,16 +43,18 @@ $(document).on('click', '.field_MF a', function(event){
   event.preventDefault();
   tracker.updateDownloadCount(getUrlParameter("id"),
     function(){
-      // console.log("success"); 
+      // console.log("success");
       window.location = href;
     },
-    function(){ 
+    function(){
       window.location = href;
-      console.log("failed"); 
+      console.log("failed");
     }
-  )  
+  )
   return false;
 })
+
+//right click tracker
 
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
